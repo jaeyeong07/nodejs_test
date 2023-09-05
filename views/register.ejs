@@ -6,6 +6,12 @@
     <title>Document</title>
 </head>
 <body>
+  <% if (user == 'guest') { %>
+    <%} else { %>
+    <p> user가 존재합니다. </p>
+    <% } %>
+  
+  <span></span>
     <form action="/register" method="post" class="form-example">
         <div class="form-example">
             <label for="name">username: </label>

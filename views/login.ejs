@@ -6,6 +6,12 @@
     <title>Document</title>
 </head>
 <body>
+    <% if (user == 'guest') { %>
+      <%} else if (user == 'null') { %>
+      <p> email이 존재하지 않습니다. </p>
+      <%} else {%>
+      <p>비밀번호가 일치하지 않습니다.</p>
+    <% } %>
     <form action="/login" method="post" class="form-example">
    
       <div class="form-example">
