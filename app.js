@@ -23,8 +23,10 @@ app.use(session({
     saveUninitialized:true,
     store : new FileStore()                        
   }))
+
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())
+app.use(express.static('public'))
 app.use('/',apiRouter)
 
 let port = 8008

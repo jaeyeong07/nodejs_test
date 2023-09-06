@@ -1,31 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <%- include('head.ejs') %>
+    <title>login</title>
 </head>
 <body>
-    <% if (user == 'guest') { %>
-      <%} else if (user == 'null') { %>
-      <p> email이 존재하지 않습니다. </p>
-      <%} else {%>
-      <p>비밀번호가 일치하지 않습니다.</p>
-    <% } %>
-    <form action="/login" method="post" class="form-example">
-   
-      <div class="form-example">
-        <label for="email">email: </label>
-        <input type="email" name="email" id="email" required />
-      </div>
+  <section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">Website menu #04</h2>
+				</div>
+			</div>
+		</div>
+	<div class="container">
+  <%- include('nav.ejs') %>
+  <!-- Outer Row -->
+  <div class="row justify-content-center">
 
-      <div class="form-example">
-        <label for="email">password: </label>
-        <input type="password" name="password" id="email" required />
-      </div>
-      <div class="form-example">
-        <input type="submit" value="Subscribe!" />
-      </div>
-    </form>
+    <div class="col-xl-10 col-lg-12 col-md-9">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                            </div>
+                            <% if (user == 'guest') { %>
+                            <%} else if (user == 'null') { %>
+                            <div class="text-center">
+                              <p class="h5 text-red-900 mb-4 text-danger"> email이 존재하지 않습니다. </p>
+                            </div>
+                            <%} else {%>
+                            <div class="text-center">
+                              <p class="h5 text-red-900 mb-4 text-danger">비밀번호가 일치하지 않습니다. </p>
+                            </div>
+                              
+                            <% } %>
+                            
+                              
+                        
+                            <form action="/login" method = "post" class="user">
+                                <div class="form-group">
+                                    <input type="email" name = "email" class="form-control form-control-user"
+                                        id="exampleInputEmail" aria-describedby="emailHelp"
+                                        placeholder="Enter Email Address...">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name = "password" class="form-control form-control-user"
+                                        id="exampleInputPassword" placeholder="Password">
+                                </div>
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox small">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck">
+                                        <label class="custom-control-label" for="customCheck">Remember
+                                            Me</label>
+                                    </div>
+                                </div>
+                                <input type="submit" class="btn btn-primary btn-user btn-block" value="Login">
+                                
+                                <hr>
+                                <a href="index.html" class="btn btn-google btn-user btn-block">
+                                    <i class="fab fa-google fa-fw"></i> Login with Google
+                                </a>
+                                <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                                    <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
+                                </a>
+                            </form>
+                            <hr>
+                            <div class="text-center">
+                                <a class="small" href="forgot-password.html">Forgot Password?</a>
+                            </div>
+                            <div class="text-center">
+                                <a class="small" href="register.html">Create an Account!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div> 
+</div>
+</section>
+<%- include('footer.ejs') %>
+
 </body>
 </html>

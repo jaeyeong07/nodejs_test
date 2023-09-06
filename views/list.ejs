@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Website menu 04</title>
+    <%- include('head.ejs') %>
+
+	</head>
+	<body>
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">Website menu #04</h2>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<%- include('nav.ejs') %>
+    <!-- END nav -->
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+        <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+            For more information about DataTables, please visit the <a target="_blank"
+                href="https://datatables.net">official DataTables documentation</a>.</p>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3-flex">
+                <div style="float: left;">
+                    <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                </div>
+                <div style="float: right;">
+                    <a href="/create"><button type="button" float  = right class="btn float-right btn-primary btn-sm">Posting</button></a>  
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>TITLE</th>
+                                <th>DESCRIPTION</th>
+                                <th>AUTHOR</th>
+                                <th>DATE</th>
+                                <th>etc</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>ID</th>
+                                <th>TITLE</th>
+                                <th>DESCRIPTION</th>
+                                <th>AUTHOR</th>
+                                <th>DATE</th>
+                                <th>etc</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <% for(var i = 0; i < articles.length; i++){ %>
+                                <tr>
+                                    <td><%= i+1 %></td>
+                                    <td><%= articles[i].title %></td>
+                                    <td><%= articles[i].desc %></td>
+                                    <td><%= articles[i].author %></td>
+                                    <td><%= articles[i].updatedAt %></td>
+                                    <td>편집버튼, 삭제버튼</td>
+                                </tr>
+                            <% } %>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+  </div>
+
+	</section>
+
+	<%- include('footer.ejs') %>
+
+	</body>
+</html>

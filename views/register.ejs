@@ -1,39 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('head.ejs') %>
     <title>Document</title>
 </head>
 <body>
-  <% if (user == 'guest') { %>
-    <%} else { %>
-    <p> user가 존재합니다. </p>
-    <% } %>
-  
-  <span></span>
-    <form action="/register" method="post" class="form-example">
-        <div class="form-example">
-            <label for="name">username: </label>
-            <input type="text" name="name" id="name" required />
-          </div>
-          <div class="form-example">
-            <label for="email">email: </label>
-            <input type="email" name="email" id="email" required />
-          </div>
+  <section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">Website menu #04</h2>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+      <%- include('nav.ejs') %>
+
+      <div class="row justify-content-center">
+
+        <div class="col-xl-10 col-lg-12 col-md-9">
     
-          <div class="form-example">
-            <label for="email">phone: </label>
-            <input type="text" name="phone" id="phone" required />
-          </div>
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                        <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                        <div class="col-lg-6">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4">Welcome!</h1>
+                                </div>
+                                <% if (user == 'guest') { %>
+                                  <%} else { %>
+                                    <div class="text-center">
+                                      <p class="h5 text-red-900 mb-4 text-danger"> User Exist!! </p>
+                                    </div>
+                                  <% } %>
+                                <form action="/register" method = "post" class="user">
+                                    <div class="form-group">
+                                        <input type="text" name = "name" class="form-control form-control-user"
+                                            id="exampleInputEmail" aria-describedby="emailHelp"
+                                            placeholder="Enter UserName...">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" name = "email" class="form-control form-control-user"
+                                            id="exampleInputPassword" placeholder="Enter Email Address...">
+                                    </div>
+                                    <div class="form-group">
+                                      <input type="text" name = "phone" class="form-control form-control-user"
+                                          id="exampleInputPassword" placeholder="Enter Phone Number...">
+                                    </div>
+                                    <div class="form-group">
+                                      <input type="password" name = "password" class="form-control form-control-user"
+                                        id="exampleInputPassword" placeholder="Enter Password...">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox small">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck">
+                                            <label class="custom-control-label" for="customCheck">Remember
+                                                Me</label>
+                                        </div>
+                                    </div>
+                                    <input type="submit" class="btn btn-primary btn-user btn-block" value="Register Account">
+                                    <hr>
+                                    <a href="index.html" class="btn btn-google btn-user btn-block">
+                                        <i class="fab fa-google fa-fw"></i> Register with Google
+                                    </a>
+                                    <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                                        <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
+                                    </a>
+                                </form>
+                                <hr>
+                                <div class="text-center">
+                                    <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                </div>
+                                <div class="text-center">
+                                    <a class="small" href="register.html">Create an Account!</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     
-          <div class="form-example">
-            <label for="email">password: </label>
-            <input type="password" name="password" id="passoword" required />
-          </div>
-          <div class="form-example">
-            <input type="submit" value="Subscribe!" />
-          </div>
-    </form>
+        </div>
+    
+  </div>
+  </div>
+  </section>
 </body>
 </html>

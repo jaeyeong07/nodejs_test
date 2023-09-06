@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const User = require('../utils/userModel')
 const bcrypt = require('bcrypt')
+const List = require('../utils/listModel')
  
 
 router.get('/', (req, res)=>{
@@ -15,6 +16,8 @@ router.get('/register',(req, res)=>{
 router.get('/login',(req, res)=>{
     return res.render('login', {user:"guest"})
 })
+
+
 
 router.post('/register', async (req, res)=>{
     console.log(req.body.name)
@@ -77,4 +80,37 @@ router.get('/logout',function(req, res){
     req.session.destroy(function(){});
     res.redirect('/');
     });
+
+router.get('/list', async (req, res, next)=>{
+    let result = await List.find();
+    console.log(result)
+    res.render('list', {articles : result})
+})
+
+router.get('/create', (req,res,next)=>{
+    res.render('create')
+})
+
+router.post('/create', async (req,res,next)=>{
+    title = req.body.title
+    author = req.body.author
+    desc = req.body.desc
+    console.log(title)
+
+    const list = new List({
+        title:title,
+        author:author,
+        desc:desc
+    })
+
+    try{
+        let result = await list.save()
+        await console.log(`Saved successfully result : ${result}`)
+        await res.redirect('/list')
+    } catch (error) {
+        console.log(error);
+        return res.redirect('/create')
+    }
+})
+
 module.exports = router
