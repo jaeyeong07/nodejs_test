@@ -135,9 +135,33 @@ router.get('/delete/:id', async (req,res)=>{
     res.redirect('/list')
 })
 
-router.get('/edit/:id',async (req,res)=>{
-    await List.deleteOne({_id:new ObjectId(req.params)})
+router.get('/:id',async (req,res)=>{
+    result = await List.findOne({_id:new ObjectId(req.params)})
+    console.log(result)
+    title = result.title
+    author = result.author
+    desc = result.desc
+    res.render('edit', {
+        name:req.session["username"],
+        data:{
+            title:title,
+            author:author,
+            desc:desc,
+            id: result._id
+        }
+    })
+
+})
+
+router.post('/edit/:id',async (req ,res)=>{
+    title = req.body.title
+    author = req.body.author
+    desc = req.body.desc
+    await List.updateOne(
+        {_id:new ObjectId(req.params)}, 
+        { title: title ,author:author ,desc: desc })
     
-    res.redirect('/list'))
+    res.redirect("/list")
+})
 
 module.exports = router
