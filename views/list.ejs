@@ -68,7 +68,20 @@
                                     <td><%= articles[i].desc %></td>
                                     <td><%= articles[i].author %></td>
                                     <td><%= articles[i].updatedAt %></td>
-                                    <td>편집버튼, 삭제버튼</td>
+                                    <td>
+                                        <a href="/delete/<%= articles[i]._id %>" class="btn btn-danger btn-icon-split" onclick="return deleteConfirm()">
+                                            <span class="icon text-white-50">
+                                                <i class="fa fa-trash fa-spin"></i>
+                                            </span>
+                                            <span class="text">Delete</span>
+                                        </a>
+                                        <a href="/edit/<%= articles[i]._id %>" class="btn btn-success btn-icon-split">
+                                            <span class="icon text-white-50">
+                                                <i class="fa fa-app-store-ios fa-spin"></i>
+                                            </span>
+                                            <span class="text">Edit</span>
+                                        </a>
+                                    </td>
                                 </tr>
                             <% } %>
                             
@@ -83,6 +96,17 @@
   </div>
 
 	</section>
+    <script>
+        function deleteConfirm() {
+            if(confirm("삭제하시겠습니까?")){
+		        alert("정상적으로 삭제되었습니다.");
+                return true
+            }else{
+		        alert("삭제실패");
+                return false
+	        }
+        }
+    </script>
 
 	<%- include('footer.ejs') %>
 

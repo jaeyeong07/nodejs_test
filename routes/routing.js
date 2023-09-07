@@ -3,18 +3,33 @@ const router = express.Router()
 const User = require('../utils/userModel')
 const bcrypt = require('bcrypt')
 const List = require('../utils/listModel')
- 
+
+const isLoggedIn = async (req, res , next)=>{
+    if (req.session['username']) {
+        next()
+    } else {
+        return res.status(301).redirect('/login')
+    }                                                                                                       
+}
+
+const isNotLoggedIn = async(req,res,next) => {
+    if (req.session['username']) {
+        res.status(403).redirect('/')
+    } else {
+        next()
+    } 
+}
 
 router.get('/', (req, res)=>{
     return res.render('index',{name:req.session["username"]})
 })
 
-router.get('/register',(req, res)=>{
-    return res.render('register', {user:'guest'})
+router.get('/register',isNotLoggedIn,(req, res)=>{
+    return res.render('register', {user:'guest',name:req.session["username"]})
 })
 
-router.get('/login',(req, res)=>{
-    return res.render('login', {user:"guest"})
+router.get('/login',isNotLoggedIn,(req, res)=>{
+    return res.render('login', {user:"guest",name:req.session["username"]})
 })
 
 
@@ -39,7 +54,7 @@ router.post('/register', async (req, res)=>{
     let result = await User.findOne({ email: email });
     console.log(result)
     if (result != null) {
-        return res.render('register', {user: "exist"})
+        return res.render('register', {user: "exist",name:req.session["username"]})
     }else {
         try{
             let result = await user.save()
@@ -60,7 +75,7 @@ router.post('/login', async(req, res)=>{
     let result = await User.findOne({ email: email });
     console.log(result)
     if (result == null) {
-        return res.render('login', {user: "null"})
+        return res.render('login', {user: "null",name:req.session["username"]})
     }else {
         resultPassword = result.password
         const same = await bcrypt.compareSync(password, resultPassword)
@@ -69,14 +84,14 @@ router.post('/login', async(req, res)=>{
             req.session["username"] = result.username; 
             res.render('index',{name:req.session["username"]})
         } else {
-            res.render('login', {user:""})
+            res.render('login', {user:"",name:req.session["username"]})
         }
         
     } 
     
 })
 
-router.get('/logout',function(req, res){
+router.get('/logout',isLoggedIn,function(req, res){
     req.session.destroy(function(){});
     res.redirect('/');
     });
@@ -84,11 +99,11 @@ router.get('/logout',function(req, res){
 router.get('/list', async (req, res, next)=>{
     let result = await List.find();
     console.log(result)
-    res.render('list', {articles : result})
+    res.render('list', {articles : result,name:req.session["username"]})
 })
 
-router.get('/create', (req,res,next)=>{
-    res.render('create')
+router.get('/create',isLoggedIn, (req,res,next)=>{
+    res.render('create',{name:req.session["username"]})
 })
 
 router.post('/create', async (req,res,next)=>{
@@ -112,5 +127,17 @@ router.post('/create', async (req,res,next)=>{
         return res.redirect('/create')
     }
 })
+
+var ObjectId = require('mongoose').Types.ObjectId;
+router.get('/delete/:id', async (req,res)=>{
+    await List.deleteOne({_id:new ObjectId(req.params)})
+    
+    res.redirect('/list')
+})
+
+router.get('/edit/:id',async (req,res)=>{
+    await List.deleteOne({_id:new ObjectId(req.params)})
+    
+    res.redirect('/list'))
 
 module.exports = router
